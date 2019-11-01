@@ -1,0 +1,39 @@
+name: deploy
+on:
+  push:
+    branches:
+      - develop
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '10.16.3'
+      - name: Install dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+
+      - name: Setup Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: '3.x'
+          architecture: 'x64'
+      - name: Install aws-cli
+        run: pip install awscli --upgrade
+      - name: Setup environment
+        if: ${GITHUB_REF##*/} == 'develop'
+        run: export ENV_PREFIX=dev.
+      - name: Deploy to s3
+        env:
+          SITE_DOMAIN: ${{ secrets.SITE_DOMAIN }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: aws s3 sync --exact-timestamps --delete dist/ s3://${ENV_PREFIX}${SITE_DOMAIN}
