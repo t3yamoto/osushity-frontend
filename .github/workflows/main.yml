@@ -30,7 +30,7 @@ jobs:
         run: pip install awscli --upgrade
       - name: Setup environment
         if: endsWith(github.ref, 'develop')
-        run: export ENV_PREFIX=dev.
+        run: echo ::set-env name=ENV_PREFIX::dev.
       - run: echo ${ENV_PREFIX}
       - name: Deploy to s3
         env:
