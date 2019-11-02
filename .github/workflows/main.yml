@@ -31,6 +31,7 @@ jobs:
       - name: Setup environment
         if: endsWith(github.ref, 'develop')
         run: export ENV_PREFIX=dev.
+      - run: echo ${ENV_PREFIX}
       - name: Deploy to s3
         env:
           SITE_DOMAIN: ${{ secrets.SITE_DOMAIN }}
