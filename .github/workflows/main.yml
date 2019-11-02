@@ -29,7 +29,7 @@ jobs:
       - name: Install aws-cli
         run: pip install awscli --upgrade
       - name: Setup environment
-        if: ${GITHUB_REF##*/} == 'develop'
+        if: endsWith(github.ref, 'develop')
         run: export ENV_PREFIX=dev.
       - name: Deploy to s3
         env:
