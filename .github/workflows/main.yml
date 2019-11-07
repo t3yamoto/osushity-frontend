@@ -4,6 +4,9 @@ on:
     branches:
       - develop
       - master
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
 jobs:
   deploy:
@@ -35,8 +38,6 @@ jobs:
       - name: Deploy to s3
         env:
           SITE_DOMAIN: ${{ secrets.SITE_DOMAIN }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           DISTRIBUTION_ID: ${{ secrets.DISTRIBUTION_ID }}
         run: aws s3 sync --exact-timestamps --delete dist/ s3://${ENV_PREFIX}${SITE_DOMAIN}
       - name: Clear cloudfront cache
