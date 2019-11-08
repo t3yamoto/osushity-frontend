@@ -45,6 +45,7 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
+    '@nuxtjs/sitemap',
     'nuxt-vue-multiselect',
     ['vue-scrollto/nuxt', { duration: 300 }]
   ],
@@ -82,5 +83,8 @@ export default {
     name: 'rectangle-bounce',
     color: '#FFC857',
     background: '#fbfbfb'
+  },
+  sitemap: {
+    hostname: `https://${process.env.SITE_DOMAIN}`
   }
 }
