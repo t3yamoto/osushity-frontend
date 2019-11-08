@@ -17,8 +17,8 @@ jobs:
           fetch-depth: 1
       - name: Setup environment
         if: endsWith(github.ref, 'develop')
-        run: echo ::set-env name=ENV_PREFIX::dev.
-      - run: echo ${ENV_PREFIX}
+        run: echo ::set-env name=DOMAIN_NAME::dev.${{ secrets.SITE_DOMAIN }}
+      - run: echo ${DOMAIN_NAME}
 
       - name: Setup Node.js
         uses: actions/setup-node@v1
@@ -29,7 +29,7 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          SITE_DOMAIN: ${ENV_PREFIX}${{ secrets.SITE_DOMAIN }}
+          SITE_DOMAIN: ${DOMAIN_NAME}
 
       - name: Setup Python
         uses: actions/setup-python@v1
@@ -39,10 +39,7 @@ jobs:
       - name: Install aws-cli
         run: pip install awscli --upgrade
       - name: Deploy to s3
-        env:
-          SITE_DOMAIN: ${{ secrets.SITE_DOMAIN }}
-          DISTRIBUTION_ID: ${{ secrets.DISTRIBUTION_ID }}
-        run: aws s3 sync --exact-timestamps --delete dist/ s3://${ENV_PREFIX}${SITE_DOMAIN}
+        run: aws s3 sync --exact-timestamps --delete dist/ s3://${DOMAIN_NAME}
       - name: Clear cloudfront cache
         run:  aws cloudfront create-invalidation --distribution-id ${DISTRIBUTION_ID} --paths '/*'
         env:
