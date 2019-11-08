@@ -30,9 +30,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Build
-        run: npm run build
-        env:
-          SITE_DOMAIN: ${DOMAIN_NAME}
+        run: SITE_DOMAIN=${DOMAIN_NAME};npm run build
 
       - name: Deploy to s3
         run: aws s3 sync --exact-timestamps --delete dist/ s3://${DOMAIN_NAME}
