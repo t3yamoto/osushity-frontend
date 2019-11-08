@@ -13,6 +13,19 @@ export default {
         name: 'description',
         content:
           '食物アレルギーをお持ちの方が、安心して回転寿司で食事をすることをサポートする検索サイトです。'
+      },
+      { name: 'twitter:card', content: 'summary' },
+      { name: 'twitter:site', content: '@t3yamoto' },
+      { name: 'og:url', content: `https://${process.env.DOMAIN_NAME}` },
+      { name: 'og:title', content: 'Osushity | 回転寿司アレルギー検索' },
+      {
+        name: 'og:description',
+        content:
+          '食物アレルギーをお持ちの方が、安心して回転寿司で食事をすることをサポートする検索サイトです。'
+      },
+      {
+        name: 'og:image',
+        content: `https://${process.env.DOMAIN_NAME}/favicon.ico`
       }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
