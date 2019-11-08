@@ -85,6 +85,6 @@ export default {
     background: '#fbfbfb'
   },
   sitemap: {
-    hostname: `https://${process.env.SITE_DOMAIN}`
+    hostname: `https://${process.env.DOMAIN_NAME}`
   }
 }

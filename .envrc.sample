@@ -2,5 +2,5 @@ set -e
 use node
 
 export BASE_URL=
-export SITE_DOMAIN=
+export DOMAIN_NAME=
 
