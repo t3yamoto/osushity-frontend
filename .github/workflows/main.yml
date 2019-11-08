@@ -17,10 +17,10 @@ jobs:
           fetch-depth: 1
       - name: Setup environment for develop
         if: endsWith(github.ref, 'develop')
-        run: echo ::set-env name=DOMAIN_NAME::dev.${{ secrets.SITE_DOMAIN }}
+        run: echo ::set-env name=DOMAIN_NAME::dev.osushity.t3yamoto.me
       - name: Setup environment for master
         if: endsWith(github.ref, 'master')
-        run: echo ::set-env name=DOMAIN_NAME::${{ secrets.SITE_DOMAIN }}
+        run: echo ::set-env name=DOMAIN_NAME::osushity.t3yamoto.me
       - run: echo ${DOMAIN_NAME}
 
       - name: Setup Node.js
